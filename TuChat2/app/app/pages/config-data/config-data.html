@@ -1,0 +1,69 @@
+<ion-navbar *navbar primary>
+  <ion-title>{{usuario.nombre}}</ion-title>
+  <ion-buttons end>
+    <button (click)="guardarCambios(usuario)">
+      <ion-icon name="rose"></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-navbar>
+
+<ion-content style="background-color: #5C6F91 !important;">
+
+  <ion-card style="margin: 0px 0px 3px 0px !important; width: calc(100% - 0px) !important;">
+    <div *ngIf="!photo">
+      <img *ngIf="!usuario.foto" src="img/code.png" />
+      <img *ngIf="usuario.foto" src="{{urlservice}}:9090/resouce/tuchat-{{usuario.id}}.png" />
+      <button fab fab-right fab-top style="margin-top:320px; background-color: #5C6F91 !important;" (click)="carbiarFotografia()">
+        <ion-icon style="font-size: 2.8em !important; " name="md-images"></ion-icon>
+      </button>
+    </div>
+    <div *ngIf="photo">
+      <img [src]="photo">
+      <button block primary (click)="sendImage(usuario.id)">Establecer Fotofrafia</button>
+    </div>
+
+    <ion-card-content>
+      <h3 style="text-align:center;" dark>
+        DATOS PERSONALES
+      </h3>
+
+      <p style="color:#ccc;">Tu/s Nombre/s</p>
+      <ion-input type="text" [(ngModel)]="usuario.nombre"></ion-input>
+
+      <p style="color:#ccc;">Tu Telefono</p>
+      <ion-input type="number" [(ngModel)]="usuario.telefono"></ion-input>
+
+      <p style="color:#ccc;">Tu Correo</p>
+      <ion-input type="email" [(ngModel)]="usuario.correo"></ion-input>
+
+      <p style="color:#ccc;">Tu Direccion</p>
+      <ion-input type="text" [(ngModel)]="usuario.direccion"></ion-input>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card style="margin: 0px 0px 3px 0px !important; width: calc(100% - 0px) !important;">
+    <ion-card-content>
+      <h3 style="text-align:center;" dark>
+        TU ESTADO
+      </h3>
+      <ion-textarea *ngIf="usuario.estado" [(ngModel)]="usuario.estado" style="color:#ccc;"></ion-textarea>
+      <ion-textarea *ngIf="!usuario.estado" [(ngModel)]="usuario.estado" style="color:#ccc;">
+        Sin estado
+      </ion-textarea>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card style="margin: 0px 0px 3px 0px !important; width: calc(100% - 0px) !important;">
+    <ion-card-content>
+      <h3 style="text-align:center;" dark>
+        DATOS DE SESION!
+      </h3>
+
+      <p style=" color:#ccc;">Nombre de usuario</p>
+      <ion-input type="text" [(ngModel)]="usuario.nombre_usuario"></ion-input>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

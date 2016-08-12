@@ -1,0 +1,73 @@
+<ion-navbar *navbar primary>
+  <ion-buttons end primary>
+    <button (click)="perfil(usuario)">
+      <img *ngIf="usuario.foto" src="{{urlservice}}:9090/resouce/tuchat-{{usuario.id}}.png" style="width:40px !important; height:40px !important; border-radius:50px;">
+      <img *ngIf="!usuario.foto" src="img/code.png" style="width:40px !important; height:40px !important; border-radius:50px;">
+    </button>
+  </ion-buttons>
+  <ion-title>
+    {{usuario.nombre_usuario}}
+    <ion-badge light *ngIf="cantidadNotificaciones">{{cantidadNotificaciones}}</ion-badge>
+  </ion-title>
+</ion-navbar>
+
+<ion-content class="padding">
+
+  <ion-refresher (refresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div style="text-align:center !important;">
+    <ion-badge *ngIf="numeroDeContactos">{{numeroDeContactos}}</ion-badge>
+    <ion-badge *ngIf="!numeroDeContactos">0</ion-badge>
+    <button style="border-radius:50px; width: 45px; height: 45px;">
+      <ion-icon style="font-size: 2.0em !important; " name="md-people"></ion-icon>
+    </button>
+    <button  danger style="border-radius:50px; width: 45px; height: 45px;" >
+      <ion-icon style="font-size: 2.0em !important; " name="md-heart-outline"></ion-icon>
+    </button>
+    <ion-badge danger *ngIf="numeroDeCorazones">{{numeroDeCorazones}}</ion-badge>
+    <ion-badge danger *ngIf="!numeroDeCorazones">0</ion-badge>
+  </div>
+
+  <ion-list >
+    <ion-item-sliding *ngFor="#contacto of contactos" >
+      <ion-item >
+        <ion-avatar item-left>
+          <img style="width:400px; height:400px;" *ngIf="!contacto.foto"
+              src="img/code.png" (click)="verInfo0(contacto)"/>
+          <img style="width:400px; height:400px;" *ngIf="contacto.foto"
+              src="{{urlservice}}:9090/resouce/tuchat-{{contacto.usuario_id_esclavo}}.png" (click)="verInfo1(contacto)"/>
+        </ion-avatar>
+        <h2 (click)="enviarmensajes(contacto)">
+          <img *ngIf="contacto.entuchat" src="img/conectado.png"
+            style="width:20px; height:20px;" />
+          <img *ngIf="!contacto.entuchat" src="img/desconectado.png"
+            style="width:20px; height:20px;" />
+          {{contacto.nombre}}
+        </h2>
+        <p (click)="enviarmensajes(contacto)">
+          <m *ngIf="contacto.estado">{{contacto.estado}}</m>
+          <m *ngIf="!contacto.estado">sin estado</m>
+          <!--<i *ngFor="#notificacion of notificaciones" dark>
+            <i dark *ngIf="notificacion.usuario_id_esclavo == contacto.usuario_id_esclavo">
+              /
+            </i>
+          </i>-->
+        </p>
+      </ion-item>
+      <ion-item-options>
+        <button danger (click)="eliminarcontacto(contacto)">
+          <ion-icon name="md-trash"></ion-icon>
+          ElIMINAR
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>
+
+<button fab fab-bottom fab-right style="z-index: 999"
+  (click)="addContactos()">
+  <ion-icon name="md-person-add" isActive="false"></ion-icon>
+</button>

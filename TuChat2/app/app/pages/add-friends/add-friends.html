@@ -1,0 +1,29 @@
+<ion-navbar *navbar primary>
+  <ion-searchbar [(ngModel)]="searchQuery" (input)="getItems($event)"></ion-searchbar>
+</ion-navbar>
+
+<ion-content>
+
+  <ion-refresher (refresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item *ngFor="#usuario of usuarios">
+      <ion-avatar item-left>
+        <img style="width:200px; height:200px;" *ngIf="!usuario.foto" src="img/code.png" />
+        <img style="width:200px; height:200px;" *ngIf="usuario.foto" src="{{urlservice}}:9090/resouce/tuchat-{{usuario.id}}.png" />
+      </ion-avatar>
+      <h2>{{usuario.nombre}}</h2>
+      <p>
+        <m *ngIf="usuario.estado">{{usuario.estado}}</m>
+        <m *ngIf="!usuario.estado">sin estado</m>
+      </p>
+      <button item-right primary (click)="addUsuario(usuario)">
+        <ion-icon name="ios-git-compare"></ion-icon>
+        Unirme
+      </button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

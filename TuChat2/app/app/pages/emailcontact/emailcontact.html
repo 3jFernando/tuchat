@@ -1,0 +1,41 @@
+<ion-navbar *navbar danger>
+  <ion-title>Enviar mail a {{contacto.nombre_usuario}}</ion-title>
+</ion-navbar>
+
+<ion-content padding class="emailcontact">
+
+  <ion-list>
+
+  <ion-item>
+    <ion-label stacked>PARA</ion-label>
+    <ion-input type="email" [(ngModel)]="textpara"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>DE</ion-label>
+    <ion-input type="email" [(ngModel)]="txtde"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>ASUNTO</ion-label>
+    <ion-input type="text" [(ngModel)]="txtasunto"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>MENSAJE</ion-label>
+    <ion-textarea type="text" [(ngModel)]="txtsms"></ion-textarea>
+  </ion-item>
+
+</ion-list>
+
+<button block outline *ngIf="!textpara || !txtde || !txtasunto || !txtsms">
+  <ion-icon name="md-mail"></ion-icon>
+  CAMPOS VACIOS
+</button>
+
+<button block outline *ngIf="textpara && txtde && txtasunto && txtsms">
+  <ion-icon name="md-mail"></ion-icon>
+  ENVIAR MAIL
+</button>
+
+</ion-content>

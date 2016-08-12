@@ -1,0 +1,25 @@
+<ion-navbar *navbar primary>
+  <ion-title style="text-align: center !important;">
+    Bienvenido a TuChat
+  </ion-title>
+</ion-navbar>
+
+<ion-content padding class="login">
+
+  <ion-card>
+    <ion-card-header>
+      <h1 style="text-align: center !important;">INICAR SESION</h1>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input type="text" [(ngModel)]="nombre_usuario" placeholder="Nombre de usuario"></ion-input>
+      <ion-input type="password" [(ngModel)]="clave" placeholder="Clave de usuario"></ion-input>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="nombre_usuario && clave">
+    <ion-card-content>
+      <button block primary (click)="login()">Inciar sesion</button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

@@ -1,0 +1,44 @@
+.globoChatRey {
+	display: inline-table;
+	padding: 4px;
+	border-radius: 1px;
+	box-shadow: 0 1px 3px #D3C7C7;
+	background-color: #FFFFFF;
+	position: relative;
+	color: #000;
+	font-size: 11px;
+
+	&::after {
+		content: "";
+		width: 0;
+		position: absolute;
+		border-style: solid;
+		border-width: 5px 0 5px 10px;
+		border-color: transparent #E4E4E5;
+		top: 10px;
+		right: -10px;
+	}
+}
+
+.globoChatEsclavo {
+	display: inline-table;
+	padding: 4px;
+	border-radius: 1px;
+	box-shadow: 0 1px 3px #555;
+	background-color: #6798FC;
+	position: relative;
+	color: #000;
+	font-family: "arial", Garamond, 'Comic Sans';
+	font-size: 11px;
+
+	&::after {
+		content: "";
+		width: 0;
+		position: absolute;
+		border-style: solid;
+		border-width: 5px 10px 5px 0;
+		border-color: transparent #6798FC;
+		top: 10px;
+		left: -10px;
+	}
+}
