@@ -1,0 +1,14 @@
+{
+  "name": "chatroom",
+  "version": "1.0.0",
+  "description": "chat de varias room",
+  "main": "index.js",
+  "scripts": {
+    "test": "aver que tal!"
+  },
+  "author": "3jFernando",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^1.4.5"
+  }
+}
