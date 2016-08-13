@@ -14,7 +14,7 @@ import {ConfigDataPage} from '../config-data/config-data';
 })
 export class HomePage {
 
-  usuario; data; contactos; urlservice; numeroDeContactos; numeroDeCorazones;
+  usuario; data; contactos; nohaycontactos; urlservice; numeroDeContactos; numeroDeCorazones;
   cantidadNotificaciones; notificaciones; socket; pkt;
 
   constructor(public platform: Platform, public params: NavParams, public nav: NavController, public http: Http, public zone: NgZone) {
@@ -30,6 +30,7 @@ export class HomePage {
     this.usuario = this.usuario.usuario;
 
     this.contactos = [];
+    this.nohaycontactos = [];
     this.cargarContactos(this.usuario);
     //metodo que carga contactos por usuario
     this.getContarContUsuario(this.usuario);
@@ -85,8 +86,9 @@ export class HomePage {
   cargarContactos(usuario) {
     this.http.get(this.urlservice+':9090/listadecontactos?usuario_id_rey='+usuario.id+'').subscribe(res => {
           this.contactos = res.json();
-          this.contactos = this.contactos.contactos;
-          console.log("----- "+this.contactos+" -----");
+          this.contactos = this.contactos.sihaycontactos;
+          this.nohaycontactos = res.json();
+          this.nohaycontactos = this.nohaycontactos.nohaycontactos;
     }, err => {
       let falloAlCargarLosContactos = Alert.create({
           title: 'FALLO :(',
@@ -143,7 +145,7 @@ export class HomePage {
     buttons: [
       {
         text: 'Perfil',
-        icon: !this.platform.is('ios') ? 'rose' : null,
+        icon: !this.platform.is('ios') ? 'ios-contact' : null,
         handler: () => {
           setTimeout(() => {
             this.nav.push(ConfigDataPage, {
@@ -219,12 +221,12 @@ export class HomePage {
     this.http.get(this.urlservice+':9090/iniciarsesion?nombre_usuario='+this.usuario.nombre_usuario+'&clave='+this.usuario.clave+'').subscribe(res => {
       this.usuario = res.json();
       if(this.usuario.usuario) {
-          window.localStorage.removeItem('usuario');
           this.usuario.usuario.forEach((item, index) => {
             this.usuario = item;
             let user = JSON.stringify({
               usuario: this.usuario
             });
+            window.localStorage.removeItem('usuario');
             window.localStorage.setItem('usuario', user);
           });
         }

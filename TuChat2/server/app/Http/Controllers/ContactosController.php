@@ -24,7 +24,6 @@ class ContactosController extends Controller
     } else {
         return response()->json(['error' => 'el contacto no existe']);;
     }
-
   }
 
   public function show($usuario_id_esclavo)

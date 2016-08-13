@@ -73,7 +73,11 @@ class UsuariosController extends Controller
           ->select('usuarios.*', 'contactos.id', 'contactos.usuario_id_rey', 'contactos.usuario_id_esclavo', 'contactos.ping')
           ->where('contactos.usuario_id_rey', '=', $request->input('usuario_id_rey'))
           ->get();
-      return response()->json(['contactos' => $contactos]);
+      if($contactos) {
+          return response()->json(['sihaycontactos' => $contactos]);
+      } else {
+          return response()->json(['nohaycontactos' => "no hay contactos para mostrar"]);
+      }
     }
 
     //dar megustas y actualizar el estado del mismo (1,0)

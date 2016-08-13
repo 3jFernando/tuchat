@@ -1,7 +1,7 @@
-import {Page, NavController, NavParams, Keyboard} from 'ionic-angular';
-import {Http, HTTP_PROVIDERS} from 'angular2/http';
+import {Page, NavController, Platform, ActionSheet,NavParams} from 'ionic-angular';
+import {Http, HTTP_PROVIDERS, Headers, RequestOptions} from 'angular2/http';
 import {NgZone} from 'angular2/core';
-
+import {Camera} from 'ionic-native';
 import {ContactoperfilPage} from '../contactoperfil/contactoperfil';
 
 @Page({
@@ -10,21 +10,19 @@ import {ContactoperfilPage} from '../contactoperfil/contactoperfil';
 })
 export class MensajesPage {
 
-  contacto; urlservice; mensaje; usuario; mensajes; socket; model; pkt;
+  contacto; urlservice; mensaje; nohaymensaje; usuario; mensajes; socket; model; pkt; photosms;
 
-  pantalla: string = "chat";
-  isAndroid: boolean = false;
-
-  constructor(public nav: NavController, public params: NavParams, public http: Http, public zone: NgZone, public keyboard: Keyboard) {
+  constructor(public nav: NavController, public platform: Platform, public params: NavParams, public http: Http, public zone: NgZone) {
     this.nav        = nav;
     this.http       = http;
+    this.platform   = platform;
     this.zone       = zone;
-    this.keyboard   = keyboard;
 
     this.contacto   = params.data.contacto;
     this.urlservice = params.data.urlservice;
     this.usuario    = params.data.usuario;
     this.mensaje    = '';
+    this.nohaymensaje = '';
     this.mensajes   = [];
     this.listarmensajes(this.contacto);
     this.pkt = {
@@ -37,9 +35,6 @@ export class MensajesPage {
 	    		this.listarmensajes(this.contacto);
 	    	});
 	  });
-    setTimeout(() => {
-      this.keyboard.isOpen()
-    }, 300);
   }
 
   perfilcontacto(contacto) {
@@ -68,10 +63,120 @@ export class MensajesPage {
       this.mensaje = '';
   }
 
+  cargarFotosms() {
+    let actionFoto = ActionSheet.create({
+      title: 'ENVIALE UNA FOTOGRAFIA',
+      buttons: [
+        {
+          text: 'Desde la Galeria',
+          icon: !this.platform.is('ios') ? 'md-images' : null,
+          handler: () => {
+            let options = {
+                  quality: 100,
+                  destinationType: 0,
+                  sourceType: 0,
+                  allowEdit: true,
+                  encodingType: 1,
+                  saveToPhotoAlbum: false,
+                  targetWidth: 300,
+                  targetHeight: 300,
+              };
+              Camera.getPicture(options).then((imageData) => {
+                  let base64Image = "data:image/jpeg;base64," + imageData;
+                  this.zone.run(() => {
+                    this.photosms = base64Image;
+                    let foto      = this.photosms;
+                    let body      = JSON.stringify({
+                        foto: foto
+                    });
+                    let headers   = new Headers({
+                        'Content-Type': 'application/json'
+                    });
+                    let options   = new RequestOptions({ headers: headers});
+
+                    this.http.post(this.urlservice+':9090/mensajes'
+                      +'?usuario_id_rey='+this.usuario.id
+                      +'&usuario_id_esclavo='+this.contacto.usuario_id_esclavo
+                      +'&mensaje='+''
+                      +'&ping='+this.contacto.ping
+                      +'&tipo=img',body,options).subscribe(res => {
+                          console.log("imgsms enviando");
+                      }, err => console.error("Fallo al enviar la imgsms " + err),
+                      () => console.log("sms enviado"));
+                      this.notificarMensajesNuevos();
+                      setTimeout(() => {
+                        this.pkt.data = this.mensaje;
+                        this.socket.emit('message', this.pkt);
+                      },500);
+                  });
+              }, (err) => {
+                  console.error(err);
+              });
+          }
+        },
+        {
+          text: 'Desde la Camara',
+          icon: !this.platform.is('ios') ? 'md-camera' : null,
+          handler: () => {
+            let options = {
+                  quality: 100,
+                  destinationType: 0,
+                  sourceType: 1,
+                  allowEdit: true,
+                  encodingType: 1,
+                  saveToPhotoAlbum: false,
+                  targetWidth: 300,
+                  targetHeight: 300,
+              };
+              Camera.getPicture(options).then((imageData) => {
+                  let base64Image = "data:image/jpeg;base64," + imageData;
+                  this.zone.run(() => {
+                    this.photosms = base64Image;
+                    let foto      = this.photosms;
+                    let body      = JSON.stringify({
+                        foto: foto
+                    });
+                    let headers   = new Headers({
+                        'Content-Type': 'application/json'
+                    });
+                    let options   = new RequestOptions({ headers: headers});
+
+                    this.http.post(this.urlservice+':9090/mensajes'
+                      +'?usuario_id_rey='+this.usuario.id
+                      +'&usuario_id_esclavo='+this.contacto.usuario_id_esclavo
+                      +'&mensaje='+''
+                      +'&ping='+this.contacto.ping
+                      +'&tipo=img',body,options).subscribe(res => {
+                          console.log("imgsms enviando");
+                      }, err => console.error("Fallo al enviar la imgsms " + err),
+                      () => console.log("sms enviado"));
+                      this.notificarMensajesNuevos();
+                      setTimeout(() => {
+                        this.pkt.data = this.mensaje;
+                        this.socket.emit('message', this.pkt);
+                      },500);
+                  });
+              }, (err) => {
+                  console.error(err);
+              });
+          }
+        },
+        {
+          text: 'Cancelar',
+          icon: !this.platform.is('ios') ? 'md-close-circle' : null,
+          role: 'cancel'
+        }
+      ]
+    });
+    this.nav.present(actionFoto);
+  }
+
   listarmensajes(contacto) {
     this.http.get(this.urlservice+':9090/mensajes/'+contacto.ping+'').subscribe(res => {
       this.mensajes = res.json();
-      this.mensajes = this.mensajes.mensajes;
+      this.mensajes = this.mensajes.sihaymensajes;
+      this.nohaymensaje = res.json();
+      this.nohaymensaje = this.nohaymensaje.nohaymensajes;
     }, err => console.error("Fallo al cargar los mensajes " + err),
     () => console.log("Mensajes cargados"));
   }

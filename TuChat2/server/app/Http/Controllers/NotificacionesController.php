@@ -41,17 +41,18 @@ class NotificacionesController extends Controller
 
     public function destroy(Request $request, $usuario_id_esclavo)
     {
-        $usuario_id_rey = $request->input('usuario_id_rey') - 1;
-        $notificaciones = Notificacion::where('usuario_id_esclavo','=',$usuario_id_esclavo)
-          ->where('usuario_id_rey','=',$usuario_id_rey)
+        $usuario_id_rey = $request->input('usuario_id_rey');
+
+        $notificaciones = Notificacion::where('usuario_id_rey','=',$usuario_id_rey)
+          ->where('usuario_id_esclavo','=',$usuario_id_esclavo)
           ->get();
         if($notificaciones->count()) {
-          foreach ($notificaciones as $key => $notificacion) {
-            $notificacion->delete();
-          }
-          return response()->json(['notificaciones' => 'eliminadas']);
+            foreach ($notificaciones as $key => $notificacion) {
+              $notificacion->delete();
+            }
+            return response()->json(['notificaciones' => 'Se eliminaron '.count($notificaciones).' notificaciones. ']);
         } else {
-          return response()->json(['error' => 'no hay notificaciones']);
+            return response()->json(['error' => 'No se pudo eliminar las notificaciones.']);
         }
     }
 }

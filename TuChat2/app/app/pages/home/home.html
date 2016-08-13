@@ -1,4 +1,4 @@
-<ion-navbar *navbar primary>
+<ion-navbar *navbar blanco>
   <ion-buttons end primary>
     <button (click)="perfil(usuario)">
       <img *ngIf="usuario.foto" src="{{urlservice}}:9090/resouce/tuchat-{{usuario.id}}.png" style="width:40px !important; height:40px !important; border-radius:50px;">
@@ -30,9 +30,9 @@
     <ion-badge danger *ngIf="!numeroDeCorazones">0</ion-badge>
   </div>
 
-  <ion-list >
-    <ion-item-sliding *ngFor="#contacto of contactos" >
-      <ion-item >
+  <ion-list>
+    <ion-item-sliding *ngFor="#contacto of contactos">
+      <ion-item>
         <ion-avatar item-left>
           <img style="width:400px; height:400px;" *ngIf="!contacto.foto"
               src="img/code.png" (click)="verInfo0(contacto)"/>
@@ -41,19 +41,19 @@
         </ion-avatar>
         <h2 (click)="enviarmensajes(contacto)">
           <img *ngIf="contacto.entuchat" src="img/conectado.png"
-            style="width:20px; height:20px;" />
+            style="width:9px; height:9px;" />
           <img *ngIf="!contacto.entuchat" src="img/desconectado.png"
-            style="width:20px; height:20px;" />
+            style="width:9px; height:9px;" />
           {{contacto.nombre}}
         </h2>
         <p (click)="enviarmensajes(contacto)">
           <m *ngIf="contacto.estado">{{contacto.estado}}</m>
           <m *ngIf="!contacto.estado">sin estado</m>
-          <!--<i *ngFor="#notificacion of notificaciones" dark>
+          <i *ngFor="#notificacion of notificaciones" dark>
             <i dark *ngIf="notificacion.usuario_id_esclavo == contacto.usuario_id_esclavo">
-              /
+              <ion-icon name="ios-chatboxes"></ion-icon>
             </i>
-          </i>-->
+          </i>
         </p>
       </ion-item>
       <ion-item-options>
@@ -65,9 +65,20 @@
     </ion-item-sliding>
   </ion-list>
 
+  <div *ngIf="nohaycontactos">
+    <ion-card>
+        <ion-card-content style="text-align:center;">
+          <ion-icon primary style="font-size: 2.0em !important; " name="md-contact"></ion-icon>
+          <m style="color:blue;">No te has unido con nadie aun {{usuario.nombre_usuario}}</m>
+          <hr>
+          Por favor presiona el boton ubicado en la parte inferior derecha para que te unas con alguno de los usuarios registrados en TuChat
+        </ion-card-content>
+    </ion-card>
+  </div>
+
 </ion-content>
 
 <button fab fab-bottom fab-right style="z-index: 999"
   (click)="addContactos()">
-  <ion-icon name="md-person-add" isActive="false"></ion-icon>
+  <ion-icon name="ios-person-add" isActive="false"></ion-icon>
 </button>

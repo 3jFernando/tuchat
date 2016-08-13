@@ -10,48 +10,57 @@
   </ion-buttons>
 </ion-navbar>
 
-
-<ion-toolbar [attr.primary]="isAndroid ? '' : null" no-border-top>
-  <ion-segment [(ngModel)]="pantalla" [attr.light]="isAndroid ? '' : null">
-    <ion-segment-button value="chat">
-      chat
-    </ion-segment-button>
-    <ion-segment-button value="emiticones">
-      emiticones
-    </ion-segment-button>
-  </ion-segment>
+<ion-toolbar style="min-height: 58px;" blanco class="padding">
+  <div style="text-align:center !important;">
+    <button danger style="border-radius:50px; width: 45px; height: 45px;" (click)="cargarFotosms()">
+      <ion-icon style="font-size: 1.8em !important; " name="ios-images"></ion-icon>
+    </button>
+    <button danger style="border-radius:50px; width: 45px; height: 45px;">
+      <ion-icon style="font-size: 1.8em !important; " name="ios-football"></ion-icon>
+    </button>
+  </div>
 </ion-toolbar>
 
-<ion-content>
-
-  <div [ngSwitch]="pantalla">
-    <ion-list *ngSwitchCase="'chat'">
-      chat
-    </ion-list>
-    <ion-list *ngSwitchCase="'emiticones'">
-      emiticones
-    </ion-list>
-  </div>
+<ion-content class="padding">
 
   <div *ngFor="#mensaje of mensajes">
     <p *ngIf="mensaje.usuario_id_rey === contacto.usuario_id_esclavo"
       style="text-align:left !important; margin-left:15px; margin-right:40px;" primary>
-        <m class="globoChatEsclavo">{{mensaje.mensaje}}</m>
+        <m *ngIf="mensaje.tipo === 'text'" class="globoChatEsclavo">
+          {{mensaje.mensaje}}
+        </m>
+        <m *ngIf="mensaje.tipo === 'img'" class="globoChatEsclavo">
+          <img style="width:160px; height:160px;" src="{{urlservice}}:9090/imgsms/{{mensaje.mensaje}}" />
+        </m>
     </p>
     <p *ngIf="mensaje.usuario_id_rey === contacto.usuario_id_rey"
       style="text-align:right !important; margin-left:40px; margin-right:15px;" dark>
-        <m class="globoChatRey">{{mensaje.mensaje}}</m>
+        <m *ngIf="mensaje.tipo === 'text'" class="globoChatRey">
+          {{mensaje.mensaje}}
+        </m>
+        <m *ngIf="mensaje.tipo === 'img'" class="globoChatRey">
+          <img style="width:160px; height:160px;" src="{{urlservice}}:9090/imgsms/{{mensaje.mensaje}}" />
+        </m>
     </p>
+  </div>
+
+  <div *ngIf="nohaymensaje">
+    <ion-card>
+        <ion-card-content style="text-align:center;">
+          <ion-icon primary style="font-size: 2.0em !important; " name="md-chatbubbles"></ion-icon>
+          <m style="color:blue;">No has iniciado una conversaciòn con {{contacto.nombre_usuario}}</m>
+        </ion-card-content>
+    </ion-card>
   </div>
 
 </ion-content>
 
-<ion-toolbar position="bottom" primary>
-  <ion-textarea style="background:#ffffff; margin: 11px 30px 17px -4px !important;
+<ion-toolbar blanco position="bottom">
+  <ion-textarea style="background:#ffffff; margin: 23px 0px 19px -4px !important;
     padding: 3px 3px 3px 3px !important;" placeholder="escribele a {{contacto.nombre}}" [(ngModel)]="mensaje"></ion-textarea>
-  <ion-buttons primary end *ngIf="mensaje">
-    <button (click)="enviarmensaje()">
-      <ion-icon style="font-size: 2.8em !important; " name="ios-paper-plane"></ion-icon>
+  <ion-buttons end *ngIf="mensaje">
+    <button (click)="enviarmensaje()" style="border-radius: 50px !important; background: #f53d3d; width: 50px; height: 50px;">
+      <ion-icon blanco style="font-size: 2.3em !important; padding-right: 5px;" name="ios-paper-plane"></ion-icon>
     </button>
   </ion-buttons>
 </ion-toolbar>

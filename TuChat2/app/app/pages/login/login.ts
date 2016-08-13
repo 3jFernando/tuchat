@@ -18,7 +18,7 @@ export class LoginPage {
     this.http   = http;
     this.zone   = zone;
 
-    this.urlservice = 'http://192.168.1.3';
+    this.urlservice = 'http://192.168.1.236';
 
     this.nombre_usuario = '';
     this.clave          = '';
