@@ -46,3 +46,4 @@ Route::get('listadecontactos', 'UsuariosController@listadecontactos');
 //actualizar datos del usuario
 Route::put('actualizardatos', 'UsuariosController@actualizardatos');
 Route::put('actualizarentuchat', 'UsuariosController@actualizarentuchat');
+Route::get('descargarImg/{foto}', 'FotoUsuarioController@descargarImg');

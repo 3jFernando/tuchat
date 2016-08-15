@@ -2,6 +2,7 @@ import {Page, NavController, NavParams, Alert, Loading} from 'ionic-angular';
 import {NgZone} from 'angular2/core';
 import {Http, HTTP_PROVIDERS} from 'angular2/http';
 import {LocalNotifications} from 'ionic-native';
+import {VisorfotosPage} from '../visorfotos/visorfotos';
 
 @Page({
   templateUrl: 'build/pages/add-friends/add-friends.html',
@@ -134,6 +135,14 @@ export class AddFriendsPage {
         return true;
       }
       return false;
+    });
+  }
+
+  viewInfoimg(usuario) {
+    this.nav.push(VisorfotosPage, {
+      contacto: "tuchat-"+usuario.id,
+      ncontacto: usuario.nombre,
+      urlservice: this.urlservice,
     });
   }
 

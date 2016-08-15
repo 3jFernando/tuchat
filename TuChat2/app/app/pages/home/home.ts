@@ -8,6 +8,7 @@ import { Toast } from 'ionic-native';
 import {MensajesPage} from '../mensajes/mensajes';
 import {AddFriendsPage} from '../add-friends/add-friends';
 import {ConfigDataPage} from '../config-data/config-data';
+import {VisorfotosPage} from '../visorfotos/visorfotos';
 
 @Page({
   templateUrl: 'build/pages/home/home.html',
@@ -124,20 +125,12 @@ export class HomePage {
     },1000);
   }
 
-  verInfo0(contacto) {
-    let alertVerInfo0 = Alert.create({
-      title: "<center>"+contacto.nombre_usuario+"</center>",
-      message: "<img src='img/code.png'>"
+  verInfoimg(contacto) {
+    this.nav.push(VisorfotosPage, {
+      contacto: "tuchat-"+contacto.usuario_id_esclavo,
+      ncontacto: contacto.nombre,
+      urlservice: this.urlservice,
     });
-    this.nav.present(alertVerInfo0);
-  }
-  verInfo1(contacto) {
-    let conImagen = this.urlservice+":9090/resouce/tuchat-"+contacto.usuario_id_esclavo+".png";
-    let alertVerInfo1 = Alert.create({
-      title: "<center>"+contacto.nombre_usuario+"</center>",
-      message: "<img src='"+conImagen+"'>"
-    });
-    this.nav.present(alertVerInfo1);
   }
 
   perfil(usuario) {

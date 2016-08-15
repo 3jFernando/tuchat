@@ -7,14 +7,15 @@ use Illuminate\Http\Request;
 use AppCrud\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use AppCrud\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use AppCrud\Models\Usuario;
 
 class FotoUsuarioController extends Controller
 {
-  //actualizar fotografia del usuario
-  public function update($id) {
-
+    //actualizar fotografia del usuario
+    public function update($id)
+    {
 			$foto = Input::get('foto');
 
 			$usuario = Usuario::find($id);
@@ -26,6 +27,12 @@ class FotoUsuarioController extends Controller
 			$img  = substr($img, strpos($img, ",")+1);
 			$foto = base64_decode($img);
 			$success = file_put_contents($path, $foto);
-
 		}
+
+    public function descargarImg($foto)
+    {
+      $pathtoFile = public_path().'/resouce/'.$foto.'.png';
+      return response()->download($pathtoFile);
+    }
+
 }

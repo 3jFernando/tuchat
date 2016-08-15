@@ -10,7 +10,7 @@
 
   <ion-list>
     <ion-item *ngFor="#usuario of usuarios">
-      <ion-avatar item-left>
+      <ion-avatar item-left (click)="viewInfoimg(usuario)">
         <img style="width:200px; height:200px;" *ngIf="!usuario.foto" src="img/code.png" />
         <img style="width:200px; height:200px;" *ngIf="usuario.foto" src="{{urlservice}}:9090/resouce/tuchat-{{usuario.id}}.png" />
       </ion-avatar>

@@ -33,11 +33,11 @@
   <ion-list>
     <ion-item-sliding *ngFor="#contacto of contactos">
       <ion-item>
-        <ion-avatar item-left>
+        <ion-avatar item-left (click)="verInfoimg(contacto)">
           <img style="width:400px; height:400px;" *ngIf="!contacto.foto"
-              src="img/code.png" (click)="verInfo0(contacto)"/>
+              src="img/code.png" />
           <img style="width:400px; height:400px;" *ngIf="contacto.foto"
-              src="{{urlservice}}:9090/resouce/tuchat-{{contacto.usuario_id_esclavo}}.png" (click)="verInfo1(contacto)"/>
+              src="{{urlservice}}:9090/resouce/tuchat-{{contacto.usuario_id_esclavo}}.png" />
         </ion-avatar>
         <h2 (click)="enviarmensajes(contacto)">
           <img *ngIf="contacto.entuchat" src="img/conectado.png"
