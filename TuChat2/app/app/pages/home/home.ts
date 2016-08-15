@@ -3,6 +3,7 @@ import {LoginPage} from '../login/login';
 import {Http, HTTP_PROVIDERS} from 'angular2/http';
 import {NgZone} from 'angular2/core';
 import {LocalNotifications} from 'ionic-native';
+import { Toast } from 'ionic-native';
 
 import {MensajesPage} from '../mensajes/mensajes';
 import {AddFriendsPage} from '../add-friends/add-friends';
@@ -120,7 +121,7 @@ export class HomePage {
     setTimeout(() => {
       this.pkt.data = "";
       this.socket.emit('entuchatactivo', this.pkt);
-    },500);
+    },1000);
   }
 
   verInfo0(contacto) {
@@ -172,6 +173,7 @@ export class HomePage {
 
   //mensajes por usuario
   enviarmensajes(contacto) {
+                   //this.urlservice+':9090/notificaciones/5?usuario_id_rey=12
     this.http.delete(this.urlservice+':9090/notificaciones/'+contacto.usuario_id_esclavo+'?usuario_id_rey='+contacto.id+'').subscribe(res => {
       console.log("eliminando notificaciones");
       this.getMensajesNuevos(this.usuario);
@@ -293,7 +295,8 @@ export class HomePage {
         this.getContarCorazones(this.usuario);
         this.getMensajesNuevos(this.usuario);
         this.notificacionContactoEliminado(contacto);
-      });
+        }
+      );
     }, 2000);
   }
 
@@ -347,7 +350,7 @@ export class HomePage {
                 setTimeout(() => {
                   this.pkt.data = "";
                   this.socket.emit('entuchatinactivo', this.pkt);
-                },500);
+                },1000);
             }, 2000);
           }
         }

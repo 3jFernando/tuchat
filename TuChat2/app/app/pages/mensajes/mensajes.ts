@@ -1,4 +1,4 @@
-import {Page, NavController, Platform, ActionSheet,NavParams} from 'ionic-angular';
+import {Page, NavController, Loading, Alert, Platform, ActionSheet,NavParams} from 'ionic-angular';
 import {Http, HTTP_PROVIDERS, Headers, RequestOptions} from 'angular2/http';
 import {NgZone} from 'angular2/core';
 import {Camera} from 'ionic-native';
@@ -10,7 +10,7 @@ import {ContactoperfilPage} from '../contactoperfil/contactoperfil';
 })
 export class MensajesPage {
 
-  contacto; urlservice; mensaje; nohaymensaje; usuario; mensajes; socket; model; pkt; photosms;
+  contacto; urlservice; mensaje; nohaymensaje; usuario; mensajes; socket; model; pkt; photosms; smsText0img;
 
   constructor(public nav: NavController, public platform: Platform, public params: NavParams, public http: Http, public zone: NgZone) {
     this.nav        = nav;
@@ -27,7 +27,7 @@ export class MensajesPage {
     this.listarmensajes(this.contacto);
     this.pkt = {
       data: '',
-      room: 'room1'
+      room: 'room1',
     };
     this.socket = io.connect(this.urlservice+':5000');
     this.socket.on(this.pkt.room + 'message', (msg) => {
@@ -75,7 +75,7 @@ export class MensajesPage {
                   quality: 100,
                   destinationType: 0,
                   sourceType: 0,
-                  allowEdit: true,
+                  allowEdit: false,
                   encodingType: 1,
                   saveToPhotoAlbum: false,
                   targetWidth: 300,
@@ -84,8 +84,7 @@ export class MensajesPage {
               Camera.getPicture(options).then((imageData) => {
                   let base64Image = "data:image/jpeg;base64," + imageData;
                   this.zone.run(() => {
-                    this.photosms = base64Image;
-                    let foto      = this.photosms;
+                    let foto      = base64Image;
                     let body      = JSON.stringify({
                         foto: foto
                     });
@@ -104,11 +103,12 @@ export class MensajesPage {
                       }, err => console.error("Fallo al enviar la imgsms " + err),
                       () => console.log("sms enviado"));
                       this.notificarMensajesNuevos();
-                      setTimeout(() => {
-                        this.pkt.data = this.mensaje;
-                        this.socket.emit('message', this.pkt);
-                      },500);
                   });
+                  setTimeout(() => {
+                    this.pkt.data = this.mensaje;
+                    this.socket.emit('message', this.pkt);
+                  },1000);
+                  this.mensaje = '';
               }, (err) => {
                   console.error(err);
               });
@@ -122,7 +122,7 @@ export class MensajesPage {
                   quality: 100,
                   destinationType: 0,
                   sourceType: 1,
-                  allowEdit: true,
+                  allowEdit: false,
                   encodingType: 1,
                   saveToPhotoAlbum: false,
                   targetWidth: 300,
@@ -131,8 +131,7 @@ export class MensajesPage {
               Camera.getPicture(options).then((imageData) => {
                   let base64Image = "data:image/jpeg;base64," + imageData;
                   this.zone.run(() => {
-                    this.photosms = base64Image;
-                    let foto      = this.photosms;
+                    let foto      = base64Image;
                     let body      = JSON.stringify({
                         foto: foto
                     });
@@ -151,11 +150,12 @@ export class MensajesPage {
                       }, err => console.error("Fallo al enviar la imgsms " + err),
                       () => console.log("sms enviado"));
                       this.notificarMensajesNuevos();
-                      setTimeout(() => {
-                        this.pkt.data = this.mensaje;
-                        this.socket.emit('message', this.pkt);
-                      },500);
                   });
+                  setTimeout(() => {
+                    this.pkt.data = this.mensaje;
+                    this.socket.emit('message', this.pkt);
+                  },1000);
+                  this.mensaje = '';
               }, (err) => {
                   console.error(err);
               });
@@ -186,6 +186,41 @@ export class MensajesPage {
         console.log('se esta enviando la notificacion del nuevo mensaje');
     },err => console.error("Fallo al crear la notificacion " + err),
     () => console.log("Notificacion creada con exito"));
+  }
+
+  infosms(mensaje) {
+    if(mensaje.tipo === 'text') {
+        this.smsText0img = "Enviado: "+mensaje.created_at+". SMS: "+mensaje.mensaje+"";
+    } else if(mensaje.tipo === 'img') {
+        this.smsText0img = "Enviado: "+mensaje.created_at+". SMS: <img src='"+this.urlservice+":9090/imgsms/"+mensaje.mensaje+"' />";
+    }
+    let alertInfosms = Alert.create({
+      title: "ELIMINAR MENSAJE",
+      message: this.smsText0img,
+      buttons: [ { text: "cancelar" },
+        {
+          text: "eliminar",
+          handler: () => {
+            this.http.delete(this.urlservice+":9090/mensajes/"+mensaje.id+"").subscribe(res => {
+              let dialogElimsms = Loading.create({
+                content: "Eliminando mensaje..."
+              });
+              this.nav.present(dialogElimsms);
+              setTimeout(() => {
+                dialogElimsms.dismiss();
+              }, 600);
+            }, err => console.log("sms error delete"), () => {
+              setTimeout(() => {
+                this.pkt.data = this.mensaje;
+                this.socket.emit('message', this.pkt);
+              },500);
+              this.mensaje = '';
+            });
+          }
+        }
+      ]
+    });
+    this.nav.present(alertInfosms);
   }
 
 }

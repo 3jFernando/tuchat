@@ -9,6 +9,7 @@ io.on('connection', function(socket) {
 	socket.on('message', function(datamsg) {
 		io.emit(datamsg.room+'message', datamsg.data);
 	});
+
 	socket.on('entuchatactivo', function(estado) {
 		io.emit(estado.room+'entuchatactivo', estado.data);
 	});

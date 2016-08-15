@@ -68,4 +68,15 @@ class MensajesController extends Controller
     }
   }
 
+  public function destroy($id)
+  {
+    $mensaje = Mensaje::find($id);
+    if($mensaje) {
+      $mensaje->delete();
+      return response()->json(['mensaje' => "mensaje eliminado"]);
+    } else {
+      return response()->json(['sinmensaje' => "el id no corresponde a ningun sms"]);
+    }
+  }
+
 }

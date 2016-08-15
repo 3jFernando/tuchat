@@ -3,7 +3,7 @@
   <ion-title *ngIf="!contacto.nombre_usuario">{{contacto.nombre}}</ion-title>
   <ion-buttons end primary>
     <button (click)="eliminarcontacto(contacto)">
-      <ion-icon name="md-trash"></ion-icon>
+      <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
     </button>
   </ion-buttons>
 </ion-navbar>
@@ -20,10 +20,10 @@
          <ion-badge *ngIf="contarcontcontacto">{{contarcontcontacto}}</ion-badge>
          <ion-badge *ngIf="!contarcontcontacto">0</ion-badge>
          <button style="border-radius:50px; width: 70px; height: 70px;">
-           <ion-icon style="font-size: 3.0em !important;" name="md-people"></ion-icon>
+           <ion-icon style="font-size: 2.3em !important;" ios="ios-contacts" md="md-contacts"></ion-icon>
          </button>
          <button  danger (click)="acualizarCorazon(contacto)" style="border-radius:50px; width: 70px; height: 70px;" >
-           <ion-icon style="font-size: 3.0em !important;" name="md-heart-outline"></ion-icon>
+           <ion-icon style="font-size: 2.3em !important;" ios="ios-heart-outline" md="md-heart-outline"></ion-icon>
          </button>
          <ion-badge danger *ngIf="contarcorazones">{{contarcorazones}}</ion-badge>
          <ion-badge danger *ngIf="!contarcorazones">0</ion-badge>
@@ -51,19 +51,19 @@
        </h2>
        <ion-list>
          <ion-item *ngIf="contacto.direccion" (click)="goAddressMap(contacto)">
-           <ion-icon primary name="pin" item-left></ion-icon>
+           <ion-icon primary ios="ios-woman" md="md-woman" item-left></ion-icon>
            <p style="color:#8A8A8A;">{{contacto.direccion}}</p>
-           <ion-icon primary item-right name="arrow-forward" ></ion-icon>
+           <ion-icon primary item-right ios="ios-woman" md="md-woman" ></ion-icon>
          </ion-item>
          <ion-item *ngIf="contacto.telefono">
-           <ion-icon primary name="call" item-left></ion-icon>
+           <ion-icon primary ios="ios-call" md="md-call" item-left></ion-icon>
            <p style="color:#8A8A8A;">{{contacto.telefono}}</p>
-           <ion-icon primary item-right name="arrow-forward" ></ion-icon>
+           <ion-icon primary item-right ios="ios-call" md="md-call"></ion-icon>
          </ion-item>
          <ion-item *ngIf="contacto.correo" (click)="goEmailContact(contacto)">
-           <ion-icon primary name="md-mail" item-left></ion-icon>
+           <ion-icon primary ios="ios-mail" md="md-mail" item-left></ion-icon>
            <p style="color:#8A8A8A;">{{contacto.correo}}</p>
-           <ion-icon primary item-right name="arrow-forward" ></ion-icon>
+           <ion-icon primary item-right ios="ios-mail" md="md-mail"></ion-icon>
          </ion-item>
        </ion-list>
      </ion-card-content>

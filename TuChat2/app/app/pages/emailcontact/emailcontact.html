@@ -8,12 +8,12 @@
 
   <ion-item>
     <ion-label stacked>PARA</ion-label>
-    <ion-input type="email" [(ngModel)]="textpara"></ion-input>
+    <ion-input type="email" [(ngModel)]="contacto.correo"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label stacked>DE</ion-label>
-    <ion-input type="email" [(ngModel)]="txtde"></ion-input>
+    <ion-input type="email" [(ngModel)]="usuario.correo"></ion-input>
   </ion-item>
 
   <ion-item>
@@ -28,12 +28,12 @@
 
 </ion-list>
 
-<button block outline *ngIf="!textpara || !txtde || !txtasunto || !txtsms">
+<button block outline *ngIf="!contacto.correo || !usuario.correo || !txtasunto || !txtsms">
   <ion-icon name="md-mail"></ion-icon>
   CAMPOS VACIOS
 </button>
 
-<button block outline *ngIf="textpara && txtde && txtasunto && txtsms">
+<button block outline *ngIf="contacto.correo && usuario.correo && txtasunto && txtsms">
   <ion-icon name="md-mail"></ion-icon>
   ENVIAR MAIL
 </button>

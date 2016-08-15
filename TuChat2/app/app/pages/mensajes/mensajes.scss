@@ -2,11 +2,11 @@
 	display: inline-table;
 	padding: 4px;
 	border-radius: 1px;
-	box-shadow: 0 1px 3px #D3C7C7;
-	background-color: #FFFFFF;
+	box-shadow: 0 1px 3px #f53d3d;
+	background-color: #f53d3d;
 	position: relative;
-	color: #000;
-	font-size: 17px;
+	color: #fff;
+	font-size: 14px;
 
 	&::after {
 		content: "";
@@ -14,22 +14,44 @@
 		position: absolute;
 		border-style: solid;
 		border-width: 5px 0 5px 10px;
-		border-color: transparent #E4E4E5;
+		border-color: transparent #f53d3d;
 		top: 10px;
 		right: -10px;
 	}
 }
 
+.globoChatReyimg {
+		display: inline-block;
+    border-radius: 40px;
+    background-color: #f53d3d;
+    position: relative;
+    width: 72px;
+    height: 72px;
+
+		&::after {
+			content: "";
+			width: 0;
+			position: absolute;
+			border-style: solid;
+			border-width: 5px 0 5px 10px;
+			border-color: transparent #f53d3d;
+			top: 30px;
+			right: -10px;
+		}
+}
+
+
+
 .globoChatEsclavo {
 	display: inline-table;
 	padding: 4px;
 	border-radius: 1px;
-	box-shadow: 0 1px 3px #555;
-	background-color: #6798FC;
+	box-shadow: 0 1px 3px #387ef5;
+	background-color: #387ef5;
 	position: relative;
 	color: #fff;
 	font-family: "arial", Garamond, 'Comic Sans';
-	font-size: 17px;
+	font-size: 14px;
 
 	&::after {
 		content: "";
@@ -37,8 +59,28 @@
 		position: absolute;
 		border-style: solid;
 		border-width: 5px 10px 5px 0;
-		border-color: transparent #6798FC;
+		border-color: transparent #387ef5;
 		top: 10px;
 		left: -10px;
 	}
+}
+
+.globoChatEsclavoimg {
+	display: inline-block;
+	border-radius: 40px;
+	background-color: #387ef5;
+	position: relative;
+	width: 72px;
+	height: 72px;
+
+		&::after {
+		    content: "";
+		    width: 0;
+		    position: absolute;
+		    border-style: solid;
+		    border-width: 5px 10px 5px 0;
+		    border-color: #fff #387ef5;
+		    top: 30px;
+		    left: -10px;
+		}
 }

@@ -2,7 +2,7 @@
   <ion-title>{{usuario.nombre}}</ion-title>
   <ion-buttons end>
     <button (click)="guardarCambios(usuario)">
-      <ion-icon name="ios-archive"></ion-icon>
+      <ion-icon ios="ios-checkbox-outline" md="md-checkbox-outline"></ion-icon>
     </button>
   </ion-buttons>
 </ion-navbar>
@@ -14,7 +14,7 @@
       <img *ngIf="!usuario.foto" src="img/code.png" />
       <img *ngIf="usuario.foto" src="{{urlservice}}:9090/resouce/tuchat-{{usuario.id}}.png" />
       <button fab primary fab-right fab-top (click)="carbiarFotografia()">
-        <ion-icon style="font-size: 2.3em !important; " name="ios-images"></ion-icon>
+        <ion-icon style="font-size: 2.3em !important; " ios="ios-aperture" md="md-aperture"></ion-icon>
       </button>
     </div>
     <div *ngIf="photo">

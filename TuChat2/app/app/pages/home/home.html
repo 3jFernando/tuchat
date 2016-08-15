@@ -21,10 +21,10 @@
     <ion-badge *ngIf="numeroDeContactos">{{numeroDeContactos}}</ion-badge>
     <ion-badge *ngIf="!numeroDeContactos">0</ion-badge>
     <button style="border-radius:50px; width: 45px; height: 45px;">
-      <ion-icon style="font-size: 2.0em !important; " name="md-people"></ion-icon>
+      <ion-icon style="font-size: 1.8em !important; " ios="ios-contacts" md="md-contacts"></ion-icon>
     </button>
     <button  danger style="border-radius:50px; width: 45px; height: 45px;" >
-      <ion-icon style="font-size: 2.0em !important; " name="md-heart-outline"></ion-icon>
+      <ion-icon style="font-size: 1.8em !important; " ios="ios-heart-outline" md="md-heart-outline"></ion-icon>
     </button>
     <ion-badge danger *ngIf="numeroDeCorazones">{{numeroDeCorazones}}</ion-badge>
     <ion-badge danger *ngIf="!numeroDeCorazones">0</ion-badge>
@@ -55,6 +55,7 @@
             </i>
           </i>
         </p>
+        <ion-icon (click)="enviarmensajes(contacto)" ios="ios-arrow-forward" md="md-arrow-forward" item-right></ion-icon>
       </ion-item>
       <ion-item-options>
         <button danger (click)="eliminarcontacto(contacto)">
@@ -80,5 +81,5 @@
 
 <button fab fab-bottom fab-right style="z-index: 999"
   (click)="addContactos()">
-  <ion-icon name="ios-person-add" isActive="false"></ion-icon>
+  <ion-icon ios="ios-person-add" md="md-person-add" isActive="false"></ion-icon>
 </button>

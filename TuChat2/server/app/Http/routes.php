@@ -19,7 +19,7 @@ Route::resource('contactos', 'ContactosController', [
 ]);
 //gardar mensajes
 Route::resource('mensajes', 'MensajesController', [
-  'only'  => ['store', 'show']
+  'only'  => ['store', 'show', 'destroy']
 ]);
 //contar contactos de los contactos
 Route::resource('contarcontcontacto', 'ContarContContactoController', [
@@ -33,6 +33,7 @@ Route::resource('contarcorazonescontacto', 'ContarCorazonesContController', [
 Route::resource('notificaciones', 'NotificacionesController', [
   'only'  => ['store','show','destroy']
 ]);
+
 
 
 /*RUTAS PARA PROVESOS VASICOS*/
