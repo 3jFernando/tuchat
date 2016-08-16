@@ -1,7 +1,7 @@
 .globoChatRey {
 	display: inline-table;
-	padding: 4px;
-	border-radius: 1px;
+	padding: 9px;
+	border-radius: 17px;
 	box-shadow: 0 1px 3px #f53d3d;
 	background-color: #f53d3d;
 	position: relative;
@@ -15,7 +15,7 @@
 		border-style: solid;
 		border-width: 5px 0 5px 10px;
 		border-color: transparent #f53d3d;
-		top: 10px;
+		top: 13px;
 		right: -10px;
 	}
 }
@@ -44,8 +44,8 @@
 
 .globoChatEsclavo {
 	display: inline-table;
-	padding: 4px;
-	border-radius: 1px;
+	padding: 9px;
+	border-radius: 17px;
 	box-shadow: 0 1px 3px #387ef5;
 	background-color: #387ef5;
 	position: relative;
@@ -60,7 +60,7 @@
 		border-style: solid;
 		border-width: 5px 10px 5px 0;
 		border-color: transparent #387ef5;
-		top: 10px;
+		top: 13px;
 		left: -10px;
 	}
 }
@@ -83,4 +83,28 @@
 		    top: 30px;
 		    left: -10px;
 		}
+}
+
+
+.alert-title {
+    color: #fff;
+}
+.backdrop {
+    background-color: #fff;
+}
+.alert-wrapper {
+    background-color: #578de4;
+    box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+}
+.alert-message, .alert-input-group {
+    color: rgb(255, 255, 255);
+}
+.alert-button {
+    padding: 7px;
+    border-radius: 2px;
+    font-weight: 500;
+    text-align: right;
+    color: #578de4;
+    background-color: #ffffff;
+    margin-right: 1px;
 }

@@ -5,15 +5,12 @@
 <ion-content class="addressmap" style="background-color: #5C6F91 !important;">
 
   <ion-card class="card">
-    <img src="img/map.png">
-    <button fab fab-right fab-top class="btn">
-      <ion-icon name='pin'></ion-icon>
-    </button>
+    <div id="map"></div>
   </ion-card>
 
   <ion-card style="text-align:center;">
     <ion-card-content>
-      <ion-icon name='pin'></ion-icon> {{contacto.direccion}}
+      <ion-icon danger name='pin'></ion-icon> <m style="color:red;">{{contacto.direccion}}</m>
     </ion-card-content>
   </ion-card>
 

@@ -30,7 +30,7 @@
           {{mensaje.mensaje}}
         </m>
         <m *ngIf="mensaje.tipo === 'img'" class="globoChatEsclavoimg">
-          <img style="width:70px; height:70px; border-radius:50px; padding-left: 2px; padding-top: 1px;" src="{{urlservice}}:9090/imgsms/{{mensaje.mensaje}}" />
+          <img style="width:70px; height:70px; border-radius:50px; padding-left: 2px; padding-top: 1px;" src="{{urlservice}}:9090/imgsms/{{mensaje.mensaje}}.png" />
         </m>
     </p>
     <p *ngIf="mensaje.usuario_id_rey === contacto.usuario_id_rey"
@@ -39,7 +39,7 @@
           {{mensaje.mensaje}}
         </m>
         <m *ngIf="mensaje.tipo === 'img'" class="globoChatReyimg">
-          <img style="width:70px; height:70px; border-radius:50px; padding-right: 2px; padding-top: 1px;" src="{{urlservice}}:9090/imgsms/{{mensaje.mensaje}}" />
+          <img style="width:70px; height:70px; border-radius:50px; padding-right: 2px; padding-top: 1px;" src="{{urlservice}}:9090/imgsms/{{mensaje.mensaje}}.png" />
         </m>
     </p>
   </div>

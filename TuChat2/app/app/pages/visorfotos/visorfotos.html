@@ -1,16 +1,16 @@
-<ion-navbar *navbar dark>
-  <ion-title *ngIf="ncontacto">{{ncontacto}}</ion-title>
-  <ion-title *ngIf="!ncontacto">Visor de fotografias</ion-title>
+<ion-navbar *navbar danger>
+  <ion-title style="color:#fff;" *ngIf="ncontacto">{{ncontacto}}</ion-title>
+  <ion-title style="color:#fff;" *ngIf="!ncontacto">Visor de fotografias</ion-title>
   <ion-buttons end>
-    <button dark *ngIf="contacto" (click)="descargarImg(contacto, ncontacto)">
+    <button danger *ngIf="contacto" (click)="descargarImg(contacto, ncontacto)">
       <ion-icon ios="ios-download" md="md-download"></ion-icon>
     </button>
   </ion-buttons>
 </ion-navbar>
 
-<ion-content class="visorfotos" style="background:#000;">
+<ion-content class="visorfotos" style="background:#fff;">
   <ion-card style="margin: 0px 0px 3px 0px !important; width: calc(100% - 0px) !important;">
     <img *ngIf="!contacto" src="img/code.png"/>
-    <img *ngIf="contacto" src="{{urlservice}}:9090/resouce/{{contacto}}.png"/>
+    <img *ngIf="contacto" src="{{urlservice}}:9090/{{url}}{{contacto}}{{tipo}}"/>
   </ion-card>
 </ion-content>

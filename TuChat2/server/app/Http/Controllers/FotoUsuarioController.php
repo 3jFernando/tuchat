@@ -29,10 +29,17 @@ class FotoUsuarioController extends Controller
 			$success = file_put_contents($path, $foto);
 		}
 
-    public function descargarImg($foto)
+    public function descargarImgDelContacto($foto)
     {
-      $pathtoFile = public_path().'/resouce/'.$foto.'.png';
-      return response()->download($pathtoFile);
+      if(public_path().'/resouce/'.$foto.'.png') {
+          return response()->download(public_path().'/resouce/'.$foto.'.png');
+      }
+    }
+    public function descargarImgDelSMS($foto)
+    {
+      if(public_path().'/imgsms/'.$foto.'.png') {
+          return response()->download(public_path().'/imgsms/'.$foto.'.png');
+      }
     }
 
 }

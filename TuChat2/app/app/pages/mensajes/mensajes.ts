@@ -3,6 +3,7 @@ import {Http, HTTP_PROVIDERS, Headers, RequestOptions} from 'angular2/http';
 import {NgZone} from 'angular2/core';
 import {Camera} from 'ionic-native';
 import {ContactoperfilPage} from '../contactoperfil/contactoperfil';
+import {VisorfotosPage} from '../visorfotos/visorfotos';
 
 @Page({
   templateUrl: 'build/pages/mensajes/mensajes.html',
@@ -10,7 +11,7 @@ import {ContactoperfilPage} from '../contactoperfil/contactoperfil';
 })
 export class MensajesPage {
 
-  contacto; urlservice; mensaje; nohaymensaje; usuario; mensajes; socket; model; pkt; photosms; smsText0img;
+  contacto; urlservice; mensaje; nohaymensaje; usuario; mensajes; socket; model; pkt; photosms;
 
   constructor(public nav: NavController, public platform: Platform, public params: NavParams, public http: Http, public zone: NgZone) {
     this.nav        = nav;
@@ -189,38 +190,76 @@ export class MensajesPage {
   }
 
   infosms(mensaje) {
+
     if(mensaje.tipo === 'text') {
-        this.smsText0img = "Enviado: "+mensaje.created_at+". SMS: "+mensaje.mensaje+"";
+        let alertInfosms = Alert.create({
+          title: "Visto",
+          message: "Enviado: "+mensaje.created_at+". SMS: "+mensaje.mensaje+"",
+          buttons: [{ text: 'Cancelar' },
+            {
+              text: "Borrar",
+              handler: () => {
+                this.http.delete(this.urlservice+":9090/mensajes/"+mensaje.id+"").subscribe(res => {
+                  let dialogElimsms = Loading.create({
+                    content: "Eliminando mensaje..."
+                  });
+                  this.nav.present(dialogElimsms);
+                  setTimeout(() => {
+                    dialogElimsms.dismiss();
+                  }, 600);
+                }, err => console.log("sms error delete"), () => {
+                  setTimeout(() => {
+                    this.pkt.data = this.mensaje;
+                    this.socket.emit('message', this.pkt);
+                  },500);
+                  this.mensaje = '';
+                });
+              }
+            }
+          ]
+        });
+        this.nav.present(alertInfosms);
     } else if(mensaje.tipo === 'img') {
-        this.smsText0img = "Enviado: "+mensaje.created_at+". SMS: <img src='"+this.urlservice+":9090/imgsms/"+mensaje.mensaje+"' />";
+        let alertInfosms = Alert.create({
+          title: "Visto",
+          message: "Enviado: "+mensaje.created_at+". <br>Presiona 'VER', para visualizar la fotografia en su tamaño real.",
+          buttons: [
+            {
+              text: 'Ver',
+              handler: () => {
+                this.nav.push(VisorfotosPage, {
+                  url: "imgsms/",
+                  contacto: ""+mensaje.mensaje,
+                  tipo: ".png",
+                  ncontacto: mensaje.created_at,
+                  urlservice: this.urlservice,
+                });
+              }
+            },
+            {
+              text: "Borrar",
+              handler: () => {
+                this.http.delete(this.urlservice+":9090/mensajes/"+mensaje.id+"").subscribe(res => {
+                  let dialogElimsms = Loading.create({
+                    content: "Eliminando mensaje..."
+                  });
+                  this.nav.present(dialogElimsms);
+                  setTimeout(() => {
+                    dialogElimsms.dismiss();
+                  }, 600);
+                }, err => console.log("sms error delete"), () => {
+                  setTimeout(() => {
+                    this.pkt.data = this.mensaje;
+                    this.socket.emit('message', this.pkt);
+                  },500);
+                  this.mensaje = '';
+                });
+              }
+            }
+          ]
+        });
+        this.nav.present(alertInfosms);
     }
-    let alertInfosms = Alert.create({
-      title: "ELIMINAR MENSAJE",
-      message: this.smsText0img,
-      buttons: [ { text: "cancelar" },
-        {
-          text: "eliminar",
-          handler: () => {
-            this.http.delete(this.urlservice+":9090/mensajes/"+mensaje.id+"").subscribe(res => {
-              let dialogElimsms = Loading.create({
-                content: "Eliminando mensaje..."
-              });
-              this.nav.present(dialogElimsms);
-              setTimeout(() => {
-                dialogElimsms.dismiss();
-              }, 600);
-            }, err => console.log("sms error delete"), () => {
-              setTimeout(() => {
-                this.pkt.data = this.mensaje;
-                this.socket.emit('message', this.pkt);
-              },500);
-              this.mensaje = '';
-            });
-          }
-        }
-      ]
-    });
-    this.nav.present(alertInfosms);
   }
 
 }

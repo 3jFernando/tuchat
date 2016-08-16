@@ -35,10 +35,9 @@ class MensajesController extends Controller
     } else if($tiposms == 'img') {
 
       $aunmento = str_random(16);
-      $nombreimgsms = "imgSMS-".$idRey."Y".$idEsc."-".$aunmento.".png";
 
       $foto = Input::get('foto');
-			$path = public_path().'/imgsms/'.$nombreimgsms;
+			$path = public_path().'/imgsms/'."imgSMS-".$idRey."Y".$idEsc."-".$aunmento.".png";
 			$img 	= $foto;
 			$img  = substr($img, strpos($img, ",")+1);
 			$foto = base64_decode($img);
@@ -47,7 +46,7 @@ class MensajesController extends Controller
       $mensaje = new Mensaje();
       $mensaje->usuario_id_rey      = $idRey;
       $mensaje->usuario_id_esclavo  = $idEsc;
-      $mensaje->mensaje             = $nombreimgsms;
+      $mensaje->mensaje             = "imgSMS-".$idRey."Y".$idEsc."-".$aunmento."";
       $mensaje->ping                = $ping;
       $mensaje->tipo                = $tiposms;
       $mensaje->save();

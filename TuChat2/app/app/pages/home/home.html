@@ -1,12 +1,13 @@
-<ion-navbar *navbar blanco>
+<ion-navbar *navbar danger>
   <ion-buttons end primary>
     <button (click)="perfil(usuario)">
-      <img *ngIf="usuario.foto" src="{{urlservice}}:9090/resouce/tuchat-{{usuario.id}}.png" style="width:40px !important; height:40px !important; border-radius:50px;">
-      <img *ngIf="!usuario.foto" src="img/code.png" style="width:40px !important; height:40px !important; border-radius:50px;">
+      <!--<img *ngIf="usuario.foto" src="{{urlservice}}:9090/resouce/tuchat-{{usuario.id}}.png" style="width:40px !important; height:40px !important; border-radius:50px;">
+      <img *ngIf="!usuario.foto" src="img/code.png" style="width:40px !important; height:40px !important; border-radius:50px;">-->
+      <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
     </button>
   </ion-buttons>
   <ion-title>
-    {{usuario.nombre_usuario}}
+    <m style="color:#fff;">{{usuario.nombre_usuario}}</m>
     <ion-badge light *ngIf="cantidadNotificaciones">{{cantidadNotificaciones}}</ion-badge>
   </ion-title>
 </ion-navbar>

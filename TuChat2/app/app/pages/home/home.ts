@@ -127,7 +127,9 @@ export class HomePage {
 
   verInfoimg(contacto) {
     this.nav.push(VisorfotosPage, {
-      contacto: "tuchat-"+contacto.usuario_id_esclavo,
+      url: "resouce/",
+      contacto: "tuchat-"+contacto.usuario_id_esclavo+"",
+      tipo: ".png",
       ncontacto: contacto.nombre,
       urlservice: this.urlservice,
     });
@@ -157,6 +159,7 @@ export class HomePage {
       },
       {
         text: 'Cancelar',
+        icon: !this.platform.is('ios') ? 'md-close-circle' : null,
         role: 'cancel'
       }
     ]

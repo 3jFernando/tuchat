@@ -140,7 +140,9 @@ export class AddFriendsPage {
 
   viewInfoimg(usuario) {
     this.nav.push(VisorfotosPage, {
-      contacto: "tuchat-"+usuario.id,
+      url: "resouce/",
+      contacto: "tuchat-"+usuario.id+"",
+      tipo: ".png",
       ncontacto: usuario.nombre,
       urlservice: this.urlservice,
     });
