@@ -122,7 +122,7 @@ export class HomePage {
     setTimeout(() => {
       this.pkt.data = "";
       this.socket.emit('entuchatactivo', this.pkt);
-    },1000);
+    },2000);
   }
 
   verInfoimg(contacto) {

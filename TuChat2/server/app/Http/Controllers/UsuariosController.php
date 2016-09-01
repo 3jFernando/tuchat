@@ -18,7 +18,7 @@ class UsuariosController extends Controller
     //metodo de listar usuarios
     public function index(Request $request)
     {
-        $id = $request->input('id');
+      $id = $request->input('id');
     	$usuarios = Usuario::where('id','!=',$id)->get();
     	return $usuarios;
     }
@@ -70,7 +70,7 @@ class UsuariosController extends Controller
     {
       $contactos = DB::table('usuarios')
           ->join('contactos', 'usuarios.id', '=', 'contactos.usuario_id_esclavo')
-          ->select('usuarios.*', 'contactos.id', 'contactos.usuario_id_rey', 'contactos.usuario_id_esclavo', 'contactos.ping')
+          ->select('usuarios.*', 'contactos.id', 'contactos.usuario_id_rey', 'contactos.usuario_id_esclavo', 'contactos.ping', 'contactos.amigo')
           ->where('contactos.usuario_id_rey', '=', $request->input('usuario_id_rey'))
           ->get();
       if($contactos) {

@@ -27,10 +27,10 @@
     <p *ngIf="mensaje.usuario_id_rey === contacto.usuario_id_esclavo"
       style="text-align:left !important; margin-left:15px; margin-right:40px;" primary (click)="infosms(mensaje)">
         <m *ngIf="mensaje.tipo === 'text'" class="globoChatEsclavo">
-          {{mensaje.mensaje}}
-        </m>
+          {{mensaje.mensaje}}          
+        </m>        
         <m *ngIf="mensaje.tipo === 'img'" class="globoChatEsclavoimg">
-          <img style="width:70px; height:70px; border-radius:50px; padding-left: 2px; padding-top: 1px;" src="{{urlservice}}:9090/imgsms/{{mensaje.mensaje}}.png" />
+          <img style="width:200px; height:200px; border-radius:4px; padding-left: 2px; padding-top: 1px;" src="{{urlservice}}:9090/imgsms/{{mensaje.mensaje}}.png" />
         </m>
     </p>
     <p *ngIf="mensaje.usuario_id_rey === contacto.usuario_id_rey"
@@ -39,7 +39,28 @@
           {{mensaje.mensaje}}
         </m>
         <m *ngIf="mensaje.tipo === 'img'" class="globoChatReyimg">
-          <img style="width:70px; height:70px; border-radius:50px; padding-right: 2px; padding-top: 1px;" src="{{urlservice}}:9090/imgsms/{{mensaje.mensaje}}.png" />
+          <img style="width:200px; height:200px; border-radius:4px; padding-right: 2px; padding-top: 1px;" src="{{urlservice}}:9090/imgsms/{{mensaje.mensaje}}.png" />
+        </m>
+    </p>
+  </div>
+
+  <div *ngFor="#sms of smss">
+    <p *ngIf="sms.usuario_id_rey === contacto.usuario_id_esclavo"
+      style="text-align:left !important; margin-left:15px; margin-right:40px;" primary (click)="infosms(sms)">
+        <m *ngIf="sms.tipo === 'text'" class="globoChatEsclavo">
+          {{sms.mensaje}}          
+        </m>
+        <m *ngIf="sms.tipo === 'img'" class="globoChatEsclavoimg">
+          <img style="width:200px; height:200px; border-radius:4px; padding-left: 2px; padding-top: 1px;" src="{{urlservice}}:9090/imgsms/{{sms.mensaje}}.png" />
+        </m>
+    </p>
+    <p *ngIf="sms.usuario_id_rey === contacto.usuario_id_rey"
+      style="text-align:right !important; margin-left:40px; margin-right:15px;" dark (click)="infosms(sms)">
+        <m *ngIf="sms.tipo === 'text'" class="globoChatRey">
+          {{sms.mensaje}}
+        </m>
+        <m *ngIf="sms.tipo === 'img'" class="globoChatReyimg">
+          <img style="width:200px; height:200px; border-radius:4px; padding-right: 2px; padding-top: 1px;" src="{{urlservice}}:9090/imgsms/{{sms.mensaje}}.png" />
         </m>
     </p>
   </div>

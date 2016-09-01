@@ -8,6 +8,7 @@ use AppCrud\Http\Requests;
 use AppCrud\Http\Controllers\Controller;
 use AppCrud\Models\Mensaje;
 use Illuminate\Support\Facades\Input;
+use DB;
 
 class MensajesController extends Controller
 {
@@ -65,6 +66,20 @@ class MensajesController extends Controller
     } else {
         return response()->json(['nohaymensajes' => "no hay mensajes para mostrar"]);
     }
+  }
+
+  public function showultimo($ping)
+  {
+
+
+   $mensajes = Mensaje::where('mensajes.ping', '=', $ping)->orderBy('mensajes.id', 'desc')->get();   
+
+   if($mensajes->count()) {
+     $mensajes = $mensajes->first();
+     return $mensajes;
+   }
+
+    
   }
 
   public function destroy($id)

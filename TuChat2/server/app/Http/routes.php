@@ -50,3 +50,6 @@ Route::put('actualizarentuchat', 'UsuariosController@actualizarentuchat');
 Route::get('descargarImgDelContacto/{foto}', 'FotoUsuarioController@descargarImgDelContacto');
 //descargar img de los sms
 Route::get('descargarImgDelSMS/{foto}', 'FotoUsuarioController@descargarImgDelSMS');
+
+
+Route::get('showultimo/{ping}', 'MensajesController@showultimo');

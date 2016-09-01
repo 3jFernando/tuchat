@@ -11,7 +11,8 @@ import {VisorfotosPage} from '../visorfotos/visorfotos';
 })
 export class MensajesPage {
 
-  contacto; urlservice; mensaje; nohaymensaje; usuario; mensajes; socket; model; pkt; photosms;
+  contacto; urlservice; mensaje; nohaymensaje; usuario; mensajes; socket; model; pkt; 
+  photosms; datos; ultimosms; smss;
 
   constructor(public nav: NavController, public platform: Platform, public params: NavParams, public http: Http, public zone: NgZone) {
     this.nav        = nav;
@@ -25,6 +26,7 @@ export class MensajesPage {
     this.mensaje    = '';
     this.nohaymensaje = '';
     this.mensajes   = [];
+    this.smss= [];
     this.listarmensajes(this.contacto);
     this.pkt = {
       data: '',
@@ -33,9 +35,15 @@ export class MensajesPage {
     this.socket = io.connect(this.urlservice+':5000');
     this.socket.on(this.pkt.room + 'message', (msg) => {
 	    	this.zone.run(() => {
-	    		this.listarmensajes(this.contacto);
+	    		//this.listarmensajes(this.contacto);          
+          this.http.get(this.urlservice+':9090/showultimo/'+this.contacto.ping+'').subscribe((res) => {
+            this.ultimosms = res.json();
+            this.ultimosms = this.ultimosms;
+            this.smss.push(this.ultimosms);
+          }, (err) => console.log('error'+err), () => console.log('fine'));
 	    	});
 	  });
+          
   }
 
   perfilcontacto(contacto) {
@@ -210,7 +218,7 @@ export class MensajesPage {
                 }, err => console.log("sms error delete"), () => {
                   setTimeout(() => {
                     this.pkt.data = this.mensaje;
-                    this.socket.emit('message', this.pkt);
+                    this.socket.emit('deletemessage', this.pkt);
                   },500);
                   this.mensaje = '';
                 });

@@ -3,6 +3,8 @@ import {Http, HTTP_PROVIDERS} from 'angular2/http';
 import {NgZone} from 'angular2/core';
 
 import {HomePage} from '../home/home';
+import {PchatPage} from '../pchat/pchat';
+
 
 @Page({
   templateUrl: 'build/pages/login/login.html',
@@ -18,7 +20,7 @@ export class LoginPage {
     this.http   = http;
     this.zone   = zone;
 
-    this.urlservice = 'http://192.168.88.132';
+    this.urlservice = 'http://127.0.0.1';
 
     this.nombre_usuario = '';
     this.clave          = '';

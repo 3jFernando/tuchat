@@ -22,11 +22,11 @@
 
 .globoChatReyimg {
 		display: inline-block;
-    border-radius: 40px;
+    border-radius: 4px;
     background-color: #f53d3d;
     position: relative;
-    width: 72px;
-    height: 72px;
+    width: 201px;
+    height: 201px;
 
 		&::after {
 			content: "";
@@ -67,11 +67,11 @@
 
 .globoChatEsclavoimg {
 	display: inline-block;
-	border-radius: 40px;
+	border-radius: 4px;
 	background-color: #387ef5;
 	position: relative;
-	width: 72px;
-	height: 72px;
+	width: 201px;
+	height: 201px;
 
 		&::after {
 		    content: "";

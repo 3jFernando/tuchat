@@ -10,7 +10,7 @@
 
 <ion-content class="visorfotos" style="background:#fff;">
   <ion-card style="margin: 0px 0px 3px 0px !important; width: calc(100% - 0px) !important;">
-    <img *ngIf="!contacto" src="img/code.png"/>
-    <img *ngIf="contacto" src="{{urlservice}}:9090/{{url}}{{contacto}}{{tipo}}"/>
+    <img *ngIf="!contacto.foto" src="img/code.png"/>
+    <img *ngIf="contacto.foto" src="{{urlservice}}:9090/{{url}}{{contacto}}{{tipo}}"/>
   </ion-card>
 </ion-content>

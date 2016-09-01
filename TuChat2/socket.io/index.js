@@ -17,9 +17,14 @@ io.on('connection', function(socket) {
 		io.emit(estado.room+'entuchatinactivo', estado.data);
 	});
 
-    socket.on('disconnect', function () {
-        console.log('Cliente desconnectado');
-    });
+	socket.on('chat_message', function(msg) {
+		io.emit('chat_message', msg);
+	});
+
+  socket.on('disconnect', function () {
+    console.log('Cliente desconnectado');
+  });
+
 });
 
 server.listen(5000, function() {

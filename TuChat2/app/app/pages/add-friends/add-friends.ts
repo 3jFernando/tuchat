@@ -123,19 +123,31 @@ export class AddFriendsPage {
   }
 
   getItems(searchbar) {
-    this.getUsuarios();
-    //valor del input
-    var q = searchbar.value;
-    //validamos si tiene datos el input
-    if(q.trim() == '') {
-      return;
+    //this.getUsuarios(); 
+    var val = searchbar.value;
+    if(val.trim() == '') {
+      this.getUsuarios(); 
     }
     this.usuarios = this.usuarios.filter((v) => {
-      if(v.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+      if(v.nombre.toLowerCase().indexOf(val.toLowerCase()) > -1) {
         return true;
       }
       return false;
     });
+  }
+
+  cancel(c) {
+    var val = c.value;
+    if(val.trim() == '') {
+      this.getUsuarios(); 
+    }
+  }
+
+  clear(a) {
+    var val = a.value;
+    if(val.trim() == '') {
+      this.getUsuarios(); 
+    }
   }
 
   viewInfoimg(usuario) {

@@ -1,8 +1,14 @@
-<ion-navbar *navbar primary>
-  <ion-searchbar [(ngModel)]="searchQuery" (input)="getItems($event)"></ion-searchbar>
-</ion-navbar>
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Agregar Contactos
+    </ion-title>
+  </ion-navbar>
+</ion-header>
 
-<ion-content>
+<ion-content padding>
+
+  <ion-searchbar [(ngModel)]="searchQuery" (input)="getItems($event)" (cancel)="cancel($event)" (clear)="clear($event)"></ion-searchbar>
 
   <ion-refresher (refresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
